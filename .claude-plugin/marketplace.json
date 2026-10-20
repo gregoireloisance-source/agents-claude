@@ -1,20 +1,13 @@
 {
   "name": "agents-claude",
   "owner": {
-    "name": "Grégoire Loisance",
-    "url": "https://github.com/gregoireloisance-source"
-  },
-  "metadata": {
-    "description": "Agents et commandes Claude Code pour les équipes d'investissement.",
-    "version": "1.0.0"
+    "name": "gregoireloisance-source"
   },
   "plugins": [
     {
       "name": "expert-calls",
-      "source": "./.claude",
-      "description": "Préparation d'expert calls en due diligence M&A : cadrage, sourcing d'experts publics, messages d'approche, guides de 45 minutes et export Excel.",
-      "version": "1.0.0",
-      "category": "productivity"
+      "source": "./plugins/expert-calls",
+      "description": "Préparation d'expert calls en due diligence : cadrage, sourcing d'experts, messages d'approche, guides d'entretien et export Excel."
     }
   ]
 }

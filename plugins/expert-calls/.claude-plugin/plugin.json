@@ -1,0 +1,8 @@
+{
+  "name": "expert-calls",
+  "version": "0.1.0",
+  "description": "Préparation d'expert calls en due diligence : cadrage, sourcing d'experts, messages d'approche, guides d'entretien et export Excel.",
+  "author": {
+    "name": "gregoireloisance-source"
+  }
+}

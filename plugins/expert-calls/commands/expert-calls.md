@@ -36,7 +36,7 @@ Sois concis et constructif. Un seul aller-retour, sauf si je veux continuer à d
 
 ## Temps 4 : Lancement d'un lot
 
-Seulement après ma validation, lance l'agent expert-calls-prep pour un lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées (numérotées), la grille de notation validée, le guide d'entretien modèle si je t'en ai fourni un, la liste des personnes et entreprises déjà proposées à exclure (vide au premier lot), et la consigne que le cadrage est déjà fait.
+Seulement après ma validation, lance l'agent expert-calls-prep (dans un plugin, il peut apparaître sous le nom expert-calls:expert-calls-prep) pour un lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées (numérotées), la grille de notation validée, le guide d'entretien modèle si je t'en ai fourni un, la liste des personnes et entreprises déjà proposées à exclure (vide au premier lot), et la consigne que le cadrage est déjà fait.
 
 ## Temps 5 : Restitution et revue (en texte, dans le terminal)
 
@@ -74,10 +74,10 @@ N'exporte que les formats que j'ai demandés. À chaque export, utilise tous les
 
 Pour les guides, reprends fidèlement les blocs et les questions produits par l'agent. Libellés de bloc : « Introduction (0-5 min) », « Bloc 1 : [thème] (5-13 min) » et les blocs suivants avec leurs horaires, « Notation et synthèse (35-42 min) », « Clôture (42-45 min) », et « À faire préciser » pour les chiffres et exemples à obtenir. Conserve au début du texte de chaque question le préfixe « ★ » (prioritaire) ou « ○ » (si le temps le permet), ainsi que « [Note 1-5] » pour les questions de notation. La couverture de chaque question d'investissement (Bonne, Partielle ou Insuffisante) est ton évaluation d'après les experts identifiés, avec les profils complémentaires à chercher dans « gap ».
 
-4. Génère les fichiers demandés. Les scripts se trouvent dans ${CLAUDE_PLUGIN_ROOT}/scripts/ (plugin installé), sinon dans .claude/scripts/ du dossier courant. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
+4. Génère les fichiers demandés. Les scripts se trouvent dans le dossier scripts de ce plugin : ${CLAUDE_PLUGIN_ROOT}/scripts/. Si cette variable n'est pas disponible, cherche build_excel.py avec la commande find dans ~/.claude/plugins. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
    - Excel : python build_excel.py [fichier.json] [fichier.xlsx]
    - Word : python build_word.py [fichier.json] [fichier.docx]
-   Si une bibliothèque manque (openpyxl, python-docx), dis-le-moi au lieu de l'installer toi-même.
+   Si build_word.py n'existe pas, dis-moi que l'export Word n'est pas encore disponible et propose l'Excel seul. Si une bibliothèque manque (openpyxl, python-docx), dis-le-moi au lieu de l'installer toi-même.
 5. Indique les chemins des fichiers créés, puis rappelle : brouillons à relire avant tout envoi, validation compliance, et conservation des fichiers (qui contiennent des noms de personnes) sur un espace autorisé par ma banque.
 
 À la fin, si des questions restent mal couvertes, propose les profils complémentaires à chercher dans un lot supplémentaire.
