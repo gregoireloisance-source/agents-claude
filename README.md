@@ -14,7 +14,7 @@
 >
 > Le prototype montre la logique et les garde-fous : aucune invention, sources vérifiables, validation humaine avant tout envoi.
 
-Agent et commande pour Claude Code qui aident à préparer une série d'expert calls : cadrage des questions d'investissement, identification d'experts à partir de sources publiques, brouillons de messages d'approche, guides d'entretien de 45 minutes et export Excel.
+Plugin pour Claude Code qui aide à préparer une série d'expert calls : cadrage des questions d'investissement, identification d'experts à partir de sources publiques, brouillons de messages d'approche, guides d'entretien de 45 minutes et export Excel.
 
 > Les messages sont des brouillons : rien n'est envoyé automatiquement. Les sources sont publiques uniquement.
 
@@ -46,56 +46,58 @@ Agent et commande pour Claude Code qui aident à préparer une série d'expert c
 - Questions ouvertes, neutres, avec une seule idée chacune. L'expert cite les acteurs avant que la cible soit nommée.
 - Chaque question est reliée aux questions d'investissement qu'elle sert, avec une ou deux relances.
 
-## Contenu du dépôt
-
-```
-.claude-plugin/
-  marketplace.json               Marketplace : permet l'installation via /plugin
-.claude/                         Le plugin expert-calls
-  .claude-plugin/plugin.json     Manifeste du plugin (nom, version, description)
-  agents/expert-calls-prep.md    Agent : recherche, sourcing, messages et guides
-  commands/expert-calls.md       Commande /expert-calls : formulaire, revue, export
-  scripts/build_excel.py         Génération du classeur Excel
-.gitignore                       Exclut les fichiers générés (xlsx, docx)
-README.md
-```
-
 ## Installation
 
-Prérequis : un compte Claude, Claude Code installé (voir la documentation officielle) et Python 3 avec openpyxl :
+**Prérequis** : Claude Code, un compte Claude, Python 3, et un accès au dépôt. Le dépôt est privé : l'accès se fait sur invitation, et l'utilisateur doit être connecté à GitHub sur sa machine (par exemple avec `gh auth login`).
+
+**1. Ajouter le marketplace et installer le plugin.** Dans Claude Code, taper ces commandes une par une :
+
+```
+/plugin marketplace add gregoireloisance-source/agents-claude
+/plugin install expert-calls@agents-claude
+/reload-plugins
+```
+
+**2. Installer la bibliothèque Python de l'export Excel**, dans un terminal :
 
 ```
 python3 -m pip install --user openpyxl
 ```
 
-Dans Claude Code, ajouter la marketplace puis installer le plugin :
+**3. Vérifier.** Taper `/expert-calls` dans Claude Code : la commande `/expert-calls:expert-calls` doit apparaître dans la liste.
+
+## Utilisation
+
+Dans Claude Code, depuis n'importe quel dossier :
 
 ```
-/plugin marketplace add gregoireloisance-source/agents-claude
-/plugin install expert-calls@agents-claude
+/expert-calls:expert-calls [nom de la société]
 ```
 
-Redémarrer Claude Code si la commande n'apparaît pas. L'agent et la commande sont alors disponibles dans tous les dossiers.
+Suivre ensuite le formulaire. Au moment de la revue, demander l'export Excel. Les fichiers sont créés dans `~/Documents/expert-calls-output/`, hors du dépôt.
 
-### Alternative : depuis un clone du dépôt
+## Contenu du dépôt
+
+```
+.claude-plugin/marketplace.json     Déclaration du marketplace
+plugins/expert-calls/
+  .claude-plugin/plugin.json        Manifeste du plugin
+  agents/expert-calls-prep.md       Agent : recherche, sourcing, messages et guides
+  commands/expert-calls.md          Commande : formulaire, revue, export
+  scripts/build_excel.py            Génération du classeur Excel
+.gitignore                          Exclut les fichiers générés (xlsx, docx)
+README.md
+```
+
+## Tester ou modifier en local
 
 ```
 gh repo clone gregoireloisance-source/agents-claude
 cd agents-claude
-claude
+claude --plugin-dir ./plugins/expert-calls
 ```
 
-Dans ce dossier, l'agent et la commande sont chargés automatiquement, sans installation.
-
-## Utilisation
-
-Dans Claude Code, lancer :
-
-```
-/expert-calls [nom de la société]
-```
-
-Suivre ensuite le formulaire. Au moment de la revue, demander l'export Excel. Les fichiers sont créés dans `~/Documents/expert-calls-output/`, hors du dépôt.
+Cette option charge le plugin depuis le dossier. Ne pas l'utiliser en même temps que le plugin installé, pour éviter les doublons.
 
 ## Règles de fonctionnement
 
@@ -116,17 +118,16 @@ Suivre ensuite le formulaire. Au moment de la revue, demander l'export Excel. Le
 ## Limites connues
 
 - Les experts nommés et sourcés restent peu nombreux : la plupart des profils pertinents ne sont pas publics.
-- L'export Word des guides n'est pas encore inclus dans le dépôt.
+- L'export Word des guides n'est pas encore inclus.
 - Le classeur est compilé par Claude à partir du texte affiché : contrôler les sources avant usage.
-- L'outil n'a pas été testé à grande échelle : les résultats sont à relire.
+- Testé sur macOS ; l'installation par un tiers et l'usage à grande échelle n'ont pas été testés.
 
 ## Mise à jour
 
 ```
 /plugin marketplace update agents-claude
+/reload-plugins
 ```
-
-Ou `git pull` si vous utilisez un clone du dépôt.
 
 ## Pour la relecture
 
