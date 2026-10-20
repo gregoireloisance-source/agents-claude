@@ -15,7 +15,7 @@ FORMULAIRE
 4. Marchés et segments (optionnel) : secteurs, produits, types de clients, pays
 5. Concurrents connus (optionnel) :
 6. Partenaires connus (optionnel) : intégrateurs, éditeurs, distributeurs
-7. Contexte supplémentaire (optionnel) : teaser, présentation, infos publiques partageables
+7. Contexte supplémentaire (optionnel) : teaser, présentation, infos publiques partageables, et/ou un guide d'entretien d'un projet précédent à prendre comme modèle de style (colle le texte)
 8. Géographie : France et Europe par défaut
 9. Nombre de contacts visés : 30 par défaut, entre 10 et 40
 
@@ -32,11 +32,11 @@ Sois concis et constructif. Un seul aller-retour, sauf si je veux continuer à d
 
 ## Temps 3 : Cadrage
 
-Écris un résumé court : la cible, le périmètre, la liste finale des questions, les catégories d'experts que tu comptes viser et les informations manquantes. Si la société ou le site manque, redemande-les. Termine par « Valides-tu ce cadrage ? » et attends mon accord explicite avant de lancer quoi que ce soit.
+Écris un résumé court : la cible, le périmètre, la liste finale des questions, les catégories d'experts que tu comptes viser, la grille de notation proposée (3 à 6 critères notés de 1 à 5, tirés des facteurs clés de succès du secteur, identiques pour tous les experts afin de pouvoir comparer leurs notes) et les informations manquantes. Si la société ou le site manque, redemande-les. Termine par « Valides-tu ce cadrage et cette grille de notation ? » et attends mon accord explicite avant de lancer quoi que ce soit.
 
 ## Temps 4 : Lancement d'un lot
 
-Seulement après ma validation, lance l'agent expert-calls-prep pour un lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées (numérotées), la liste des personnes et entreprises déjà proposées à exclure (vide au premier lot), et la consigne que le cadrage est déjà fait.
+Seulement après ma validation, lance l'agent expert-calls-prep pour un lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées (numérotées), la grille de notation validée, le guide d'entretien modèle si je t'en ai fourni un, la liste des personnes et entreprises déjà proposées à exclure (vide au premier lot), et la consigne que le cadrage est déjà fait.
 
 ## Temps 5 : Restitution et revue (en texte, dans le terminal)
 
@@ -47,7 +47,7 @@ Termine par un court point à trois volets, que je peux traiter en une seule ré
 2. Veux-tu un lot supplémentaire ? Indique combien de contacts nous avons et combien il en reste pour atteindre l'objectif (40 maximum).
 3. Veux-tu exporter en Excel (classeur complet) et/ou en Word (guides d'entretien) ?
 
-Intègre mes commentaires avant tout export : modifie toi-même les messages et guides si c'est mineur, relance l'agent si je demande de nouveaux profils. Pour un lot supplémentaire, relance l'agent en lui transmettant les personnes et entreprises déjà proposées (à exclure) et les questions les moins couvertes en priorité.
+Intègre mes commentaires avant tout export : modifie toi-même les messages et guides si c'est mineur, relance l'agent si je demande de nouveaux profils. Pour un lot supplémentaire, relance l'agent en lui transmettant les personnes et entreprises déjà proposées (à exclure), la grille de notation validée et les questions les moins couvertes en priorité.
 
 ## Temps 6 : Export, uniquement si je le demande
 
@@ -72,7 +72,7 @@ N'exporte que les formats que j'ai demandés. À chaque export, utilise tous les
   "market_sources": [{"url": "", "note": ""}]
 }
 
-Pour les guides, utilise ces libellés de bloc : « Introduction (0-5 min) », « Parcours et contexte (5-10 min) », « Fond (10-40 min) » (une ligne par question), « Clôture (40-45 min) », et « À faire préciser » pour les chiffres et exemples à obtenir. La couverture de chaque question (Bonne, Partielle ou Insuffisante) est ton évaluation d'après les experts identifiés, avec les profils complémentaires à chercher dans « gap ».
+Pour les guides, reprends fidèlement les blocs et les questions produits par l'agent. Libellés de bloc : « Introduction (0-5 min) », « Bloc 1 : [thème] (5-13 min) » et les blocs suivants avec leurs horaires, « Notation et synthèse (35-42 min) », « Clôture (42-45 min) », et « À faire préciser » pour les chiffres et exemples à obtenir. Conserve au début du texte de chaque question le préfixe « ★ » (prioritaire) ou « ○ » (si le temps le permet), ainsi que « [Note 1-5] » pour les questions de notation. La couverture de chaque question d'investissement (Bonne, Partielle ou Insuffisante) est ton évaluation d'après les experts identifiés, avec les profils complémentaires à chercher dans « gap ».
 
 4. Génère les fichiers demandés. Les scripts se trouvent dans .claude/scripts/ du dossier courant, sinon dans ~/.claude/scripts/. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
    - Excel : python build_excel.py [fichier.json] [fichier.xlsx]
