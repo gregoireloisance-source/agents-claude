@@ -1,8 +1,8 @@
 ---
-description: Brief, brainstorming des questions, cadrage puis recherche d'experts avec messages d'approche et guides d'entretien
+description: Brief, brainstorming des questions, cadrage, recherche d'experts, revue puis export Excel et Word
 ---
 
-Tu m'aides à préparer une série d'expert calls pour une phase de due diligence. Procède en cinq temps, dans l'ordre, sans en sauter aucun.
+Tu m'aides à préparer une série d'expert calls pour une phase de due diligence. Procède dans l'ordre, sans sauter d'étape.
 
 ## Temps 1 : Formulaire
 
@@ -34,12 +34,50 @@ Sois concis et constructif. Un seul aller-retour, sauf si je veux continuer à d
 
 Écris un résumé court : la cible, le périmètre, la liste finale des questions, les catégories d'experts que tu comptes viser et les informations manquantes. Si la société ou le site manque, redemande-les. Termine par « Valides-tu ce cadrage ? » et attends mon accord explicite avant de lancer quoi que ce soit.
 
-## Temps 4 : Lancement du premier lot
+## Temps 4 : Lancement d'un lot
 
-Seulement après ma validation, lance l'agent expert-calls-prep pour un premier lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées, et la consigne que le cadrage est déjà fait.
+Seulement après ma validation, lance l'agent expert-calls-prep pour un lot de 10 contacts maximum. Transmets-lui le brief complet : cible, site, marchés, concurrents, partenaires, contexte, géographie, nombre total visé, la liste finale des questions validées (numérotées), la liste des personnes et entreprises déjà proposées à exclure (vide au premier lot), et la consigne que le cadrage est déjà fait.
 
-## Temps 5 : Lots suivants et couverture
+## Temps 5 : Restitution et revue (en texte, dans le terminal)
 
-Présente le résultat du lot tel que l'agent l'a produit. Indique combien de contacts nous avons et combien il en reste pour atteindre l'objectif, puis demande si je veux un lot supplémentaire. Si oui, relance l'agent en lui transmettant la liste des personnes et entreprises déjà proposées (à exclure) et les questions les moins couvertes pour qu'il les traite en priorité. Arrête-toi à l'objectif ou à 40 contacts.
+Présente d'abord le résultat du lot en texte, tel que l'agent l'a produit : tableaux des experts, messages d'approche, guides de 45 minutes, pistes. Ne génère aucun fichier à ce stade.
 
-À la fin, produis un tableau de couverture cumulé : chaque question en ligne, avec le niveau de couverture (bonne, partielle ou insuffisante) selon les experts identifiés, et propose des profils complémentaires pour les questions mal couvertes.
+Termine par un court point à trois volets, que je peux traiter en une seule réponse :
+1. Ce lot me convient-il ? J'ai des commentaires à intégrer (questions, profils, ton des messages, contenu des guides) ?
+2. Veux-tu un lot supplémentaire ? Indique combien de contacts nous avons et combien il en reste pour atteindre l'objectif (40 maximum).
+3. Veux-tu exporter en Excel (classeur complet) et/ou en Word (guides d'entretien) ?
+
+Intègre mes commentaires avant tout export : modifie toi-même les messages et guides si c'est mineur, relance l'agent si je demande de nouveaux profils. Pour un lot supplémentaire, relance l'agent en lui transmettant les personnes et entreprises déjà proposées (à exclure) et les questions les moins couvertes en priorité.
+
+## Temps 6 : Export, uniquement si je le demande
+
+N'exporte que les formats que j'ai demandés. À chaque export, utilise tous les lots validés jusqu'ici.
+
+1. Dossier de sortie : ~/Documents/expert-calls-output/ (crée-le s'il n'existe pas). N'écris jamais de résultat dans le dépôt agents-claude ni dans le dossier courant s'il s'agit d'un dépôt git.
+2. Nom des fichiers : [société en minuscules sans espaces]_expert-calls_[AAAA-MM-JJ], avec les extensions .json, .xlsx et .docx.
+3. Compile un fichier JSON avec le schéma ci-dessous. Reprends uniquement ce qui a été produit et validé dans la conversation : n'invente rien, laisse vide (chaîne vide ou liste vide) ce qui manque.
+
+{
+  "target": "", "website": "", "date": "JJ/MM/AAAA", "geography": "", "scope": "", "competitors": "", "partners": "",
+  "questions": [{"id": 1, "question": "", "why": "", "expert_types": "", "experts": "A1, A2", "coverage": "Bonne | Partielle | Insuffisante", "gap": ""}],
+  "experts_a": [{
+    "id": "A1", "name": "", "role": "", "company": "", "category": "", "relevance": "", "questions": "1, 3",
+    "priority": "Haute | Moyenne | Basse", "confidence": "Haute | Moyenne | Faible",
+    "sources": [{"url": "", "note": "ce que la source établit"}],
+    "message": {"language": "FR | EN", "subject": "", "body": ""},
+    "guide": [{"block": "", "question": "", "followups": "", "serves": "1, 2"}]
+  }],
+  "leads_b": [{"id": "B1", "profile_type": "", "company": "", "function": "", "reason": "", "questions": "", "keywords": "", "sources": [{"url": "", "note": ""}]}],
+  "templates_b": [{"profile_type": "", "language": "FR | EN", "subject": "", "message": "", "guide": [{"block": "", "question": "", "followups": "", "serves": ""}]}],
+  "market_sources": [{"url": "", "note": ""}]
+}
+
+Pour les guides, utilise ces libellés de bloc : « Introduction (0-5 min) », « Parcours et contexte (5-10 min) », « Fond (10-40 min) » (une ligne par question), « Clôture (40-45 min) », et « À faire préciser » pour les chiffres et exemples à obtenir. La couverture de chaque question (Bonne, Partielle ou Insuffisante) est ton évaluation d'après les experts identifiés, avec les profils complémentaires à chercher dans « gap ».
+
+4. Génère les fichiers demandés. Les scripts se trouvent dans .claude/scripts/ du dossier courant, sinon dans ~/.claude/scripts/. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
+   - Excel : python build_excel.py [fichier.json] [fichier.xlsx]
+   - Word : python build_word.py [fichier.json] [fichier.docx]
+   Si une bibliothèque manque (openpyxl, python-docx), dis-le-moi au lieu de l'installer toi-même.
+5. Indique les chemins des fichiers créés, puis rappelle : brouillons à relire avant tout envoi, validation compliance, et conservation des fichiers (qui contiennent des noms de personnes) sur un espace autorisé par ma banque.
+
+À la fin, si des questions restent mal couvertes, propose les profils complémentaires à chercher dans un lot supplémentaire.
