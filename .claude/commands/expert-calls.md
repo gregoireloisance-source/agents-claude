@@ -74,7 +74,7 @@ N'exporte que les formats que j'ai demandés. À chaque export, utilise tous les
 
 Pour les guides, reprends fidèlement les blocs et les questions produits par l'agent. Libellés de bloc : « Introduction (0-5 min) », « Bloc 1 : [thème] (5-13 min) » et les blocs suivants avec leurs horaires, « Notation et synthèse (35-42 min) », « Clôture (42-45 min) », et « À faire préciser » pour les chiffres et exemples à obtenir. Conserve au début du texte de chaque question le préfixe « ★ » (prioritaire) ou « ○ » (si le temps le permet), ainsi que « [Note 1-5] » pour les questions de notation. La couverture de chaque question d'investissement (Bonne, Partielle ou Insuffisante) est ton évaluation d'après les experts identifiés, avec les profils complémentaires à chercher dans « gap ».
 
-4. Génère les fichiers demandés. Les scripts se trouvent dans .claude/scripts/ du dossier courant, sinon dans ~/.claude/scripts/. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
+4. Génère les fichiers demandés. Les scripts se trouvent dans ${CLAUDE_PLUGIN_ROOT}/scripts/ (plugin installé), sinon dans .claude/scripts/ du dossier courant. Utilise ~/.venvs/expert-calls/bin/python si ce dossier existe, sinon python3.
    - Excel : python build_excel.py [fichier.json] [fichier.xlsx]
    - Word : python build_word.py [fichier.json] [fichier.docx]
    Si une bibliothèque manque (openpyxl, python-docx), dis-le-moi au lieu de l'installer toi-même.

@@ -49,7 +49,10 @@ Agent et commande pour Claude Code qui aident à préparer une série d'expert c
 ## Contenu du dépôt
 
 ```
-.claude/
+.claude-plugin/
+  marketplace.json               Marketplace : permet l'installation via /plugin
+.claude/                         Le plugin expert-calls
+  .claude-plugin/plugin.json     Manifeste du plugin (nom, version, description)
   agents/expert-calls-prep.md    Agent : recherche, sourcing, messages et guides
   commands/expert-calls.md       Commande /expert-calls : formulaire, revue, export
   scripts/build_excel.py         Génération du classeur Excel
@@ -59,16 +62,30 @@ README.md
 
 ## Installation
 
-Prérequis : un compte Claude, Claude Code installé (voir la documentation officielle), Python 3 et git.
+Prérequis : un compte Claude, Claude Code installé (voir la documentation officielle) et Python 3 avec openpyxl :
+
+```
+python3 -m pip install --user openpyxl
+```
+
+Dans Claude Code, ajouter la marketplace puis installer le plugin :
+
+```
+/plugin marketplace add gregoireloisance-source/agents-claude
+/plugin install expert-calls@agents-claude
+```
+
+Redémarrer Claude Code si la commande n'apparaît pas. L'agent et la commande sont alors disponibles dans tous les dossiers.
+
+### Alternative : depuis un clone du dépôt
 
 ```
 gh repo clone gregoireloisance-source/agents-claude
 cd agents-claude
-python3 -m pip install --user openpyxl
 claude
 ```
 
-Dans ce dossier, l'agent et la commande sont chargés automatiquement.
+Dans ce dossier, l'agent et la commande sont chargés automatiquement, sans installation.
 
 ## Utilisation
 
@@ -106,8 +123,10 @@ Suivre ensuite le formulaire. Au moment de la revue, demander l'export Excel. Le
 ## Mise à jour
 
 ```
-git pull
+/plugin marketplace update agents-claude
 ```
+
+Ou `git pull` si vous utilisez un clone du dépôt.
 
 ## Pour la relecture
 

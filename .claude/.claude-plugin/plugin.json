@@ -1,0 +1,12 @@
+{
+  "name": "expert-calls",
+  "version": "1.0.0",
+  "description": "Préparation d'expert calls en due diligence M&A : cadrage des questions, sourcing d'experts à partir de sources publiques, messages d'approche, guides d'entretien de 45 minutes et export Excel.",
+  "author": {
+    "name": "Grégoire Loisance",
+    "url": "https://github.com/gregoireloisance-source"
+  },
+  "homepage": "https://github.com/gregoireloisance-source/agents-claude",
+  "repository": "https://github.com/gregoireloisance-source/agents-claude",
+  "keywords": ["due-diligence", "m&a", "expert-calls", "private-equity", "sourcing"]
+}
